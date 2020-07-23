@@ -8,9 +8,9 @@ export class LoggerService {
 
   constructor() { }
 
-  log(logVar: any) {
+  log(logVar: any, message: string = '',  style: string = 'black') {
     if(!environment.production){
-      console.log(logVar);
+      console.log(`%c${message? message + ' :': ''}${logVar}`, `color : ${style};`);
     }
   }
 }
