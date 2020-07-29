@@ -58,6 +58,7 @@ export class ThreeService {
   calcDimension() {
     this.innerWidth = this.rendererCanvas.nativeElement.offsetWidth;
     this.innerHeight = this.rendererCanvas.nativeElement.offsetHeight;
+    this.logger.log( this.innerWidth, 'dimension')
   }
 
   //#region scene, light, camera setup function
@@ -78,7 +79,7 @@ export class ThreeService {
   }
 
   initCamera() {
-    this.camera = new Three.PerspectiveCamera( 3, window.innerWidth / window.innerHeight, 0.1, 1000 );
+    this.camera = new Three.PerspectiveCamera( 3, this.innerWidth / this.innerHeight, 0.1, 1000 );
     this.camera.position.z = 7;
     this.camera.position.y = 0.07;
     this.camera.position.x = -0.1;
@@ -88,7 +89,7 @@ export class ThreeService {
   initRenderer() {
     this.renderer = new Three.WebGLRenderer({antialias:true});
     // set size
-    this.modifyRenderer(window.innerWidth, window.innerHeight);
+    this.modifyRenderer(this.innerWidth, this.innerHeight);
     
     // this.logger.log(this.renderer.domElement);
   }
