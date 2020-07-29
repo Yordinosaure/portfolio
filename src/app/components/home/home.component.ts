@@ -13,9 +13,9 @@ export class HomeComponent implements OnInit {
   @ViewChild('renderer', {static: true})
   rendererCanvas: ElementRef<HTMLDivElement>;
 
-  @HostListener('window:resize', ['$event'])
-  onResize(event){
-    this.threeService.resizeAction(event);
+  @HostListener('window:resize')
+  onResize(){
+    this.threeService.resizeAction();
   }
 
   @HostListener('mousemove', ['$event'])

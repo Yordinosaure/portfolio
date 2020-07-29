@@ -33,6 +33,9 @@ export class ThreeService {
   zoomNearLimit: number = 5;
   zoomFarLimit: number = 20;
 
+  innerWidth: number;
+  innerHeight: number;
+
   screenW: number;
   screenH: number;
   screenRatio: number;
@@ -51,9 +54,16 @@ export class ThreeService {
     }
   }
 
+  // get the dimension of ElementRef
+  calcDimension() {
+    this.innerWidth = this.rendererCanvas.nativeElement.offsetWidth;
+    this.innerHeight = this.rendererCanvas.nativeElement.offsetHeight;
+  }
+
   //#region scene, light, camera setup function
   createScene(renderCanvas: ElementRef<any>) {
     this.rendererCanvas = renderCanvas;
+    this.calcDimension();
     this.colors = this.colorService.getColors();
     this.initScene();
     this.initCamera();
@@ -122,11 +132,12 @@ export class ThreeService {
   }
 
    // compute the render on window resize event
-   resizeAction(event) {
-    this.screenW = event.target.innerWidth;
-    this.screenH = event.target.innerHeight;
-    this.screenRatio = this.screenW / this.screenH;
-    this.modifyRenderer(this.screenW, this.screenH);
+   resizeAction() {
+    // this.screenW = event.target.innerWidth;
+    // this.screenH = event.target.innerHeight;
+    this.calcDimension();
+    this.screenRatio = this.innerWidth / this.innerHeight;
+    this.modifyRenderer(this.innerWidth, this.innerHeight);
     this.camera.aspect = this.screenRatio;
     this.camera.updateProjectionMatrix();
     this.computeRender();
