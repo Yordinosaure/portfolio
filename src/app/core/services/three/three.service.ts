@@ -25,9 +25,13 @@ export class ThreeService {
   gltf: GLTF;
   pivot: Three.Group;
   mousex: number;
-  rotationVal: number = 0.05;
   rendererCanvas: ElementRef<any>;
   backGroundCol: string = '#501b1d';
+  
+  rotationVal: number = 0.05;
+  autoRotationVal: number = 0.005;
+  zoomNearLimit: number = 5;
+  zoomFarLimit: number = 20;
 
   screenW: number;
   screenH: number;
@@ -39,12 +43,6 @@ export class ThreeService {
     // this.logger.log(5);
     // this.logger.log(this.test, 'test', 'green'); 
     this.colors = this.colorService.getColors();
-    
-   
-    // var axesHelper = new Three.AxesHelper( 5 );
-    // this.scene.add( axesHelper );
-    // this.initHelpers()
-    // this.computeRender();
   }
 
   ngOnDestroy(): void {
@@ -53,6 +51,7 @@ export class ThreeService {
     }
   }
 
+  //#region scene, light, camera setup function
   createScene(renderCanvas: ElementRef<any>) {
     this.rendererCanvas = renderCanvas;
     this.colors = this.colorService.getColors();
@@ -75,18 +74,7 @@ export class ThreeService {
     this.camera.position.x = -0.1;
     
   }
-
-  initHelpers() {
-    var helper = new Three.CameraHelper( this.camera );
-    this.scene.add( helper );
-    var gridHelper = new Three.GridHelper( 10, 10,0x444423, 0x888887 );
-    this.scene.add( gridHelper );
-
-    var axesHelper = new Three.AxesHelper( 5 );
-    this.scene.add( axesHelper );
-
-  }
-
+  
   initRenderer() {
     this.renderer = new Three.WebGLRenderer({antialias:true});
     // set size
@@ -112,7 +100,42 @@ export class ThreeService {
     this.renderer.render(this.scene, this.camera);
     
   }
-  public animate(): void {
+
+  initLight() {
+    this.light = new Three.PointLight('#ffffff', 3, 5000);
+    this.light.position.set(10, 25, 25);
+    this.scene.add(this.light);
+    this.light2 = new Three.PointLight(this.colors.darkpurple, 5, 5000);
+    this.light2.position.set(2, 5, 5);
+    this.scene.add(this.light2);
+  }
+  
+  initHelpers() {
+    var helper = new Three.CameraHelper( this.camera );
+    this.scene.add( helper );
+    var gridHelper = new Three.GridHelper( 10, 10,0x444423, 0x888887 );
+    this.scene.add( gridHelper );
+
+    var axesHelper = new Three.AxesHelper( 5 );
+    this.scene.add( axesHelper );
+
+  }
+
+   // compute the render on window resize event
+   resizeAction(event) {
+    this.screenW = event.target.innerWidth;
+    this.screenH = event.target.innerHeight;
+    this.screenRatio = this.screenW / this.screenH;
+    this.modifyRenderer(this.screenW, this.screenH);
+    this.camera.aspect = this.screenRatio;
+    this.camera.updateProjectionMatrix();
+    this.computeRender();
+  }
+
+  //#endregion
+
+  //#region animation auto
+  animate(): void {
     // We have to run this outside angular zones,
     // because it could trigger heavy changeDetection cycles.
     this.ngZone.runOutsideAngular(() => {
@@ -127,35 +150,21 @@ export class ThreeService {
     });
   }
 
+  // three js recursive animation func
   rotate() {
     this.frameId = requestAnimationFrame(() => {
       this.rotate();
     });
-
-    this.pivot.rotation.y += 0.005;
+    this.pivot.rotation.y += this.autoRotationVal;
     this.computeRender()
   }
 
-  resizeAction(event) {
-    this.screenW = event.target.innerWidth;
-    this.screenH = event.target.innerHeight;
-    this.screenRatio = this.screenW / this.screenH;
-    this.modifyRenderer(this.screenW, this.screenH);
-    this.camera.aspect = this.screenRatio;
-    this.camera.updateProjectionMatrix();
-    this.computeRender();
-  }
+  //#endregion
 
-  zoom(y: number) {
-    if(y < 0 && this.camera.position.z > 5) {
-      this.camera.position.z -= 0.5;
-    }
-    else if(y > 0 && this.camera.position.z < 20) {
-      this.camera.position.z += 0.5;
-    }
-    this.computeRender();
-  }
+ 
 
+  // model loading function
+  //TODO => make it generic for other models
   loadModel() {
     this.loader = new GLTFLoader();
     this.loader.load('../../assets/3dmodels/victoire.gltf', 
@@ -196,16 +205,9 @@ export class ThreeService {
     });
   }
 
+  //#region  mouse event animation
 
-  initLight() {
-    this.light = new Three.PointLight('#ffffff', 3, 5000);
-    this.light.position.set(10, 25, 25);
-    this.scene.add(this.light);
-    this.light2 = new Three.PointLight(this.colors.darkpurple, 5, 5000);
-    this.light2.position.set(2, 5, 5);
-    this.scene.add(this.light2);
-  }
-
+  //rotation on mouse drag
   onMouseDragAction(event){
     if(event.buttons == 1) {
       if(this.mousex < event.clientX){
@@ -218,4 +220,18 @@ export class ThreeService {
       this.computeRender();
     }
   }
+
+  //zoom on  mouseWheel event
+  // y => deltaY of wheel event
+  zoom(y: number) {
+    if(y < 0 && this.camera.position.z > this.zoomNearLimit) {
+      this.camera.position.z -= 0.5;
+    }
+    else if(y > 0 && this.camera.position.z < this.zoomFarLimit) {
+      this.camera.position.z += 0.5;
+    }
+    this.computeRender();
+  }
+
+  //#endregion
 }
