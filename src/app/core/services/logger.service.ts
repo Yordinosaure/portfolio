@@ -13,4 +13,10 @@ export class LoggerService {
       console.log(`%c${message? message + ' :': ''}${logVar}`, `color : ${style};`);
     }
   }
+
+  dir(logVar: any) {
+    if(!environment.production){
+      console.dir(logVar);
+    }
+  }
 }
