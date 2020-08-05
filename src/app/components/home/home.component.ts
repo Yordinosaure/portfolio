@@ -15,17 +15,17 @@ export class HomeComponent implements OnInit {
 
   @HostListener('window:resize')
   onResize(){
-    this.threeService.resizeAction();
+    // this.threeService.resizeAction();
   }
 
   @HostListener('mousemove', ['$event'])
   onMouseDrag(event){
-    this.threeService.onMouseDragAction(event);
+    // this.threeService.onMouseDragAction(event);
   }
 
   @HostListener('wheel', ['$event']) // for window scroll events
   onScroll(event) {
-    this.threeService.zoom(event.deltaY);
+    // this.threeService.zoom(event.deltaY);
   }
 
   
@@ -33,7 +33,7 @@ export class HomeComponent implements OnInit {
   constructor(private threeService: ThreeService) { }
 
   ngOnInit(): void {
-    this.threeService.createScene(this.rendererCanvas);
+    // this.threeService.createScene(this.rendererCanvas);
   }
 
 }

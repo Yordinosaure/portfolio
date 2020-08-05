@@ -1,9 +1,11 @@
-import { Injectable } from '@angular/core';
+import { Injectable, ElementRef } from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ThreeDService {
+
+  rendererCanvas: ElementRef<any>;
 
   constructor() { }
 }
