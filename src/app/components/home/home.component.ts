@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, HostListener, NgZone } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, HostListener } from '@angular/core';
 import { LoggerService } from 'src/app/core/services/logger.service';
 
 import { ThreeService } from 'src/app/core/services/three/three.service';
