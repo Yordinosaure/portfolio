@@ -1,3 +1,18 @@
+$font-path: "./assets/fonts/" !default;
+@font-face{
+    font-family: 'heebo';
+    src: url('#{$font-path}Heebo-VariableFont_wght.ttf');
+}
+@font-face{
+    font-family: 'antiqua';
+    src: url('#{$font-path}InknutAntiqua-Regular.ttf');
+}
+@font-face{
+    font-family: 'titillium';
+    src: url('#{$font-path}TitilliumWeb-Light.ttf');
+}
+
+
 /* You can add global styles to this file, and also import other style files */
 body {
     margin: 0;
@@ -12,3 +27,5 @@ canvas {
     // width: 100vw;
     // height: 100vh;
 }
+
+
