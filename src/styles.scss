@@ -14,11 +14,11 @@ $font-path: "./assets/fonts/" !default;
 
 
 /* You can add global styles to this file, and also import other style files */
-body {
-    margin: 0;
-    height: 100vh;
-    // display: flex;
-}
+//  material already do it
+// body {
+//     margin: 0;
+//     height: 100vh;
+// }
 
 canvas {
     display: block;
@@ -29,3 +29,7 @@ canvas {
 }
 
 
+// material
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+// material end
