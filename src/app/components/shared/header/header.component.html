@@ -1,5 +1,6 @@
 <div class="menu-wrapper">
     <ul class="menu-list">
+        <!-- id will be removed -->
         <li class="menu-item"
             id="{{content.cssId}}"
             *ngFor="let content of contents"
@@ -8,7 +9,9 @@
             {{content.title}}
         </li>
     </ul>
-    <!-- <span class="menu-icon">
-        x
-    </span> -->
+    <div class="menu-close-wrapper">
+        <span class="material-icons menu-close">
+            close
+        </span>
+    </div>
 </div>

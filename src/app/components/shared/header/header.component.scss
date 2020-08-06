@@ -5,8 +5,10 @@
     color: white;
     // padding: .2em;
     display: flex;
+    justify-content: space-between;
     height: fit-content;
 }
+
 .menu-list {
     display: flex;
     justify-content: space-around;
@@ -37,20 +39,19 @@
         &:hover::before, &.menu-item-active::before{           
             height: 75%;       
         }
-    }
-    // .menu-item-active::before {
-    //     content:'';
-    //     z-index:-1;
-    //     background-color: $lightRed;
-    //     position: absolute;
-    //     display: block;
-    //     right: 25%;
-    //     bottom: 0;
-    //     width: 50%;
-    //     height: 75%;
-    // }
-    
+    }    
 }
-.menu-icon {
+.menu-close-wrapper {
     flex-grow: 1;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    .menu-close {
+        border: 1px solid white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 50px;
+        height: 100%;
+    }
 }
