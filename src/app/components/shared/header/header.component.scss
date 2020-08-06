@@ -1,0 +1,56 @@
+@import '../../../../assets/style/index.scss';
+
+.menu-wrapper {
+    background-color:#17090a;
+    color: white;
+    // padding: .2em;
+    display: flex;
+    height: fit-content;
+}
+.menu-list {
+    display: flex;
+    justify-content: space-around;
+    flex-grow: 9;
+    margin: 0;
+    .menu-item {
+        list-style-type: none;
+        font-family: 'titillium';
+        font-weight: $xbold-weight;
+        font-size: 14px;
+        text-transform: uppercase;
+        position: relative;
+        z-index: 3;
+        padding: 15px;
+        &::before {
+            transition: height .3s;
+            transition-timing-function: ease-in-out;
+            content:'';
+            z-index:-1;
+            background-color: $lightRed;
+            position: absolute;
+            display: block;
+            right: 25%;
+            bottom: 0;
+            width: 50%;
+            height: 0;
+        }
+        &:hover::before, &.menu-item-active::before{           
+            height: 75%;       
+        }
+    }
+    // .menu-item-active::before {
+    //     content:'';
+    //     z-index:-1;
+    //     background-color: $lightRed;
+    //     position: absolute;
+    //     display: block;
+    //     right: 25%;
+    //     bottom: 0;
+    //     width: 50%;
+    //     height: 75%;
+    // }
+    
+}
+.menu-icon {
+    flex-grow: 1;
+}
