@@ -28,8 +28,24 @@ canvas {
     // height: 100vh;
 }
 
+//hide scroll bar
+html, body { 
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none;  /* IE and Edge */
+ }
+
+body::-webkit-scrollbar {
+    display: none; /* Chrome, safari */
+}
+
 
 // material
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html, body { 
+    height: 100vh;
+ }
+body { 
+    margin: 0; 
+    font-family: Roboto, "Helvetica Neue", sans-serif; 
+}
+
 // material end
