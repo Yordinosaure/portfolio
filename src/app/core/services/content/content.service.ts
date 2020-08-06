@@ -11,6 +11,7 @@ export class ContentService {
     {cssId: 'hard', title: 'hard skills'},
     {cssId: 'soft', title: 'soft skills'},
     {cssId: 'contact', title: 'contact me'},
+    {cssId: 'about', title: 'about'}
   ]
 
   constructor() { }
