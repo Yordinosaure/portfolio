@@ -1,17 +1,19 @@
-<div class="menu-wrapper">
+<div class="menu-wrapper"[@menuState]="stateName">
     <ul class="menu-list">
         <!-- id will be removed -->
-        <li class="menu-item"
-            id="{{content.cssId}}"
-            *ngFor="let content of contents"
-            (click)="toggle(content.cssId)"
+        <li class="menu-item" id="{{content.cssId}}" *ngFor="let content of contents" (click)="toggleMenuItem(content.cssId)"
             [ngClass]="toggled === content.cssId ? 'menu-item-active': ''">
             {{content.title}}
         </li>
     </ul>
-    <div class="menu-close-wrapper">
-        <span class="material-icons menu-close">
+    <div class="menu-close-wrapper" (click)="displayMenu()">
+        <span class="material-icons menu-icon">
             close
-        </span>
+        </span>        
     </div>
+</div>
+<div class="burger-wrapper" [@menuState]="stateName == 'hide'? 'show':'hide'" (click)="displayMenu()">
+    <span class="material-icons menu-icon">
+        menu
+    </span>
 </div>

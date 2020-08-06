@@ -3,9 +3,15 @@
 .menu-wrapper {
     background-color:#17090a;
     color: white;
-    // padding: .2em;
     display: flex;
     justify-content: space-between;
+    height: fit-content;
+}
+
+.burger-wrapper {
+    color: white;
+    display: flex;
+    justify-content: flex-end;
     height: fit-content;
 }
 
@@ -46,12 +52,14 @@
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    .menu-close {
-        border: 1px solid white;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 50px;
-        height: 100%;
-    }
+}
+
+.menu-icon {
+    // border: 1px solid white;
+    background-color: $lightRed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    height: 50px;
 }
