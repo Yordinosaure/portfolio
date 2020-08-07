@@ -1,3 +1,5 @@
+@import '../../../assets/style/index';
+
 .smoke {
     margin: 0;
     width: 100vw;
@@ -7,3 +9,68 @@
     background-repeat: no-repeat;
     background-size: cover;
 }
+.pres-content-wrapper {
+    display: flex;
+    align-items: center;
+    .pres-content {
+        background-color: rgba(129, 40, 44, 0.4);
+        border-radius: 0.5%;
+        width: 25%;
+        height: 40%;
+        margin-left: 10%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        // align-items: center;
+        color: white;
+        font-family: 'titillium';
+        padding: 5%;
+        h1 {
+            font-size: 50px;
+            font-weight: bold;
+            letter-spacing: .2em;
+        }
+        p {
+            // padding: 5%;
+            font-size: 25px;
+            letter-spacing: .1em;
+            line-height: 1.5em;
+        }
+    }
+}
+
+.scroll-downs {
+    position: absolute;
+    // top: 0;
+    right: 0;
+    bottom: 40px;
+    left: 0;
+    margin: auto;
+    
+    width :34px;
+    height: 55px;
+  }
+  .mousey {
+    width: 3px;
+    padding: 10px 15px;
+    height: 35px;
+    border: 2px solid #fff;
+    border-radius: 25px;
+    opacity: 0.75;
+    box-sizing: content-box;
+  }
+  .scroller {
+    width: 3px;
+    height: 10px;
+    border-radius: 25%;
+    background-color: #fff;
+    animation-name: scroll;
+    animation-duration: 2.2s;
+    animation-timing-function: cubic-bezier(.15,.41,.69,.94);
+    animation-iteration-count: infinite;
+  }
+  @keyframes scroll {
+    0% { opacity: 0; }
+    10% { transform: translateY(0); opacity: 1; }
+    100% { transform: translateY(15px); opacity: 0;}
+  }
