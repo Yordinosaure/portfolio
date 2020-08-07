@@ -9,6 +9,7 @@ import { FooterComponent } from './components/shared/footer/footer.component';
 import { ThreeTestComponent } from './components/three-test/three-test.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PresentationComponent } from './components/presentation/presentation.component';
+import { HardSkillsComponent } from './components/hard-skills/hard-skills.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { PresentationComponent } from './components/presentation/presentation.co
     HeaderComponent,
     FooterComponent,
     ThreeTestComponent,
-    PresentationComponent
+    PresentationComponent,
+    HardSkillsComponent
   ],
   imports: [
     BrowserModule,
