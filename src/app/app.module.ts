@@ -8,6 +8,7 @@ import { HeaderComponent } from './components/shared/header/header.component';
 import { FooterComponent } from './components/shared/footer/footer.component';
 import { ThreeTestComponent } from './components/three-test/three-test.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { PresentationComponent } from './components/presentation/presentation.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     HomeComponent,
     HeaderComponent,
     FooterComponent,
-    ThreeTestComponent
+    ThreeTestComponent,
+    PresentationComponent
   ],
   imports: [
     BrowserModule,
