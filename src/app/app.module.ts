@@ -10,6 +10,7 @@ import { ThreeTestComponent } from './components/three-test/three-test.component
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PresentationComponent } from './components/presentation/presentation.component';
 import { HardSkillsComponent } from './components/hard-skills/hard-skills.component';
+import { Canvas3DComponent } from './components/shared/canvas3-d/canvas3-d.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { HardSkillsComponent } from './components/hard-skills/hard-skills.compon
     FooterComponent,
     ThreeTestComponent,
     PresentationComponent,
-    HardSkillsComponent
+    HardSkillsComponent,
+    Canvas3DComponent
   ],
   imports: [
     BrowserModule,
