@@ -3,7 +3,9 @@
         <!-- id will be removed -->
         <li class="menu-item" id="{{content.cssId}}" *ngFor="let content of contents" (click)="toggleMenuItem(content.cssId)"
             [ngClass]="toggled === content.cssId ? 'menu-item-active': ''">
-            {{content.title}}
+            <a href="#">
+                {{content.title}}
+            </a>
         </li>
     </ul>
     <div class="menu-close-wrapper" (click)="displayMenu()">

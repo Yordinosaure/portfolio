@@ -31,6 +31,7 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit(): void {
     this.contents = this.contentService.getMenuContent();
+    this.toggled = this.contents[0].cssId;
   }
 
   toggleMenuItem(str) {
