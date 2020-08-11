@@ -14,9 +14,18 @@ export class ContentService {
     {cssId: 'about', title: 'about'}
   ]
 
+  presentationContent = {
+    title: 'Angular/JavaScript developer',
+    name: 'Yordi David',
+    quote: '"It could be nice working together and make awesome things"'
+  }
+
   constructor() { }
 
   getMenuContent() {
     return this.menuContent;
+  }
+  getPresentationContent() {
+    return this.presentationContent;
   }
 }
