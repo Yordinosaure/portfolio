@@ -43,7 +43,7 @@ export class ThreeDService implements OnInit, OnDestroy{
     }
   }
 
-  createScene(renderHtmlEl: ElementRef<HTMLElement> ) {
+  createScene(renderHtmlEl: ElementRef<HTMLElement> ): void {
     this.rendererCanvas = renderHtmlEl;
     this.colors = this.colorService.getColors();
     this.calcDimension();
@@ -54,18 +54,20 @@ export class ThreeDService implements OnInit, OnDestroy{
     this.loadModel();
   }
 
-  calcDimension() {
+  calcDimension(): void {
     this.innerWidth = this.rendererCanvas.nativeElement.offsetWidth;
     this.innerHeight = this.rendererCanvas.nativeElement.offsetHeight;
     // this.logger.log(this.innerWidth, 'dimension')
   }
 
-  initScene() {
+  initScene(): void {
     this.scene = new Three.Scene();
-    this.scene.position.y = -0.07;
+    this.scene.position.y = -0.05;
+    this.scene.position.x = 0.05;
+    this.scene.position.z = 1;
   }
   
-  initCamera() {
+  initCamera(): void {
     this.camera = new Three.PerspectiveCamera(3, this.innerWidth / this.innerHeight, 0.1, 1000);
     this.camera.position.z = 7;
     this.camera.position.y = 0.07;
@@ -73,7 +75,7 @@ export class ThreeDService implements OnInit, OnDestroy{
 
   }
 
-  initLight() {
+  initLight(): void {
     this.light = new Three.PointLight('#ffffff', 3, 5000);
     this.light.position.set(10, 25, 25);
     this.scene.add(this.light);
@@ -82,7 +84,7 @@ export class ThreeDService implements OnInit, OnDestroy{
     this.scene.add(this.light2);
   }
 
-  initRenderer() {
+  initRenderer(): void {
     // antializing to soften model polygons
     // alpha treu to enable background transparency 
     this.renderer = new Three.WebGLRenderer({ antialias: true, alpha: true });
@@ -92,7 +94,7 @@ export class ThreeDService implements OnInit, OnDestroy{
     // this.logger.log(this.renderer.domElement);
   }
 
-  modifyRenderer(width: number, height: number) {
+  modifyRenderer(width: number, height: number): void {
     this.renderer.setSize(width, height);
     // this.renderer.setClearColor(this.colors.deepred);
     this.renderer.setClearColor( 0x000000, 0 );
@@ -100,19 +102,19 @@ export class ThreeDService implements OnInit, OnDestroy{
 
   }
 
-  render() {
+  render(): void {
     // insert to DOM
     // this.renderer.domElement.style.backgroundColor = 'transparent';
     this.rendererCanvas.nativeElement.appendChild(this.renderer.domElement);
     this.computeRender();
   }
 
-  computeRender() {
+  computeRender(): void {
     this.renderer.render(this.scene, this.camera);
 
   }
 
-  loadModel() {
+  loadModel(): void {
     this.loader = new GLTFLoader();
     this.loader.load('../../assets/3dmodels/victoire.gltf',
       (gltf) => {
@@ -126,10 +128,16 @@ export class ThreeDService implements OnInit, OnDestroy{
         this.pivot = new Three.Group();
         this.scene.add(this.pivot);
         this.pivot.add(this.gltf.scene);
-        this.gltf.scene.scale.set(1.2, 1.2, 1.2);
+        this.gltf.scene.scale.set(1.1, 1.1, 1.1);
+
+        //X => horizontal
+        //Y => Vertical
+        //Z => depth
 
         this.gltf.scene.translateX(-0.06);
         this.gltf.scene.translateZ(0.06);
+        // this.gltf.scene.translateZ(0.1);
+        // this.gltf.scene.translateY(0.02);
 
        
 
@@ -159,7 +167,7 @@ export class ThreeDService implements OnInit, OnDestroy{
   }
 
   // three js recursive animation func
-  rotate() {
+  rotate(): void {
     this.frameId = requestAnimationFrame(() => {
       this.rotate();
     });
@@ -172,7 +180,7 @@ export class ThreeDService implements OnInit, OnDestroy{
 
   //#endregion
 
-  resizeAction() {
+  resizeAction(): void {
     // this.screenW = event.target.innerWidth;
     // this.screenH = event.target.innerHeight;
     this.calcDimension();
