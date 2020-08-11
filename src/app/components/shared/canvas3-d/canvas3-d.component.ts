@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef, HostListener } from '@angular/core';
+import { ThreeDService } from 'src/app/core/services/three-d.service';
 
 @Component({
   selector: 'app-canvas3-d',
@@ -12,7 +13,7 @@ export class Canvas3DComponent implements OnInit {
 
   @HostListener('window:resize')
   onResize(){
-    // this.threeService.resizeAction();
+    this.threeDService.resizeAction();
   }
 
   @HostListener('mousemove', ['$event'])
@@ -25,9 +26,10 @@ export class Canvas3DComponent implements OnInit {
     // this.threeService.zoom(event.deltaY);
   }
 
-  constructor() { }
+  constructor(private threeDService: ThreeDService) { }
 
   ngOnInit(): void {
+    this.threeDService.createScene(this.rendererCanvas);
   }
 
 }
