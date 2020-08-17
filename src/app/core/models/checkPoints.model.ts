@@ -2,15 +2,15 @@ export class CheckPoint {
 
     cssId: string;
     docPosition: number;
-    positionV: V3;
-    angleDeg: number;
+    destinationV: V3;
+    destinationAngleDeg: number;
     angleRad: number;
 
-    constructor(id: string, docPosY, xPos: number, yPos: number, zPos:number, angleDeg: number){
+    constructor(id: string, docPosY: number, destinationX: number, destinationY: number, destinationZ:number, angleDeg: number){
         this.cssId = id;
         this.docPosition = docPosY;
-        this.positionV = new V3(xPos, yPos, zPos);
-        this.angleDeg = angleDeg;
+        this.destinationV = new V3(destinationX, destinationY, destinationZ);
+        this.destinationAngleDeg = angleDeg;
         this.angleRad = angleDeg * Math.PI / 180;
     }
 }
