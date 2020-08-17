@@ -2,6 +2,7 @@ import { Injectable, ElementRef, NgZone, OnInit, OnDestroy } from '@angular/core
 import * as Three from 'three';
 import { ColorService } from './color.service';
 import { GLTFLoader, GLTF } from 'three/examples/jsm/loaders/GLTFLoader.js';
+import { CheckPoint } from '../models/checkPoints.model';
 
 @Injectable({
   providedIn: 'root'
@@ -28,6 +29,12 @@ export class ThreeDService implements OnInit, OnDestroy{
   screenRatio: number;
 
   frameId: number = null;
+
+  isAnimated = true;
+
+  scrollPosY : number;
+
+  checkPoints: CheckPoint[] = [];
 
   constructor(private colorService: ColorService, private ngZone: NgZone) { }
 
@@ -168,14 +175,17 @@ export class ThreeDService implements OnInit, OnDestroy{
 
   // three js recursive animation func
   rotate(): void {
-    this.frameId = requestAnimationFrame(() => {
-      this.rotate();
-    });
-    this.pivot.rotation.y += this.autoRotationVal;
-    // this.menuItems.forEach(x => {
-    //   x.rotation.y -= this.autoRotationVal;
-    // })
-    this.computeRender()
+    if(this.isAnimated) {
+      this.frameId = requestAnimationFrame(() => {
+        this.rotate();
+      });
+      this.pivot.rotation.y += this.autoRotationVal;
+      // console.log(this.pivot.rotation.y % this.degToRad(360))
+      // this.menuItems.forEach(x => {
+      //   x.rotation.y -= this.autoRotationVal;
+      // })
+      this.computeRender();
+    }
   }
 
   //#endregion
@@ -189,5 +199,36 @@ export class ThreeDService implements OnInit, OnDestroy{
     this.camera.aspect = this.screenRatio;
     this.camera.updateProjectionMatrix();
     this.computeRender();
+  }
+
+  moveToCoord() {
+    this.stopRotation();
+  }
+
+  stopRotation(): void {
+    this.isAnimated = false;
+  }
+
+  startRotation(): void {
+    this.isAnimated = true;
+    this.animate();
+  }
+
+  upDateDisplayCoord(scrollY: number) {
+    this.scrollPosY = scrollY;
+    this.stopRotation();
+    this.pivot.rotateY(this.degToRad(1))
+    console.log(this.pivot.rotation.y);
+    // Math
+    // console.log(this.scrollPosY);
+  }
+
+  degToRad(deg: number): number {
+    return deg * Math.PI / 180;
+  }
+
+  addCheckPoint(cp: CheckPoint): void {
+    this.checkPoints.push(cp);
+    console.log(this.checkPoints);
   }
 }
