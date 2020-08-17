@@ -21,15 +21,22 @@ export class Canvas3DComponent implements OnInit {
     // this.threeService.onMouseDragAction(event);
   }
 
-  @HostListener('wheel', ['$event']) // for window scroll events
-  onScroll(event) {
-    // this.threeService.zoom(event.deltaY);
-  }
+  // @HostListener('wheel', ['$event']) // for window wheel events
+  // onWheel(event) {
+   
+  //   // this.threeService.zoom(event.deltaY);
+  // }
+   @HostListener('window:scroll', ['$event'])
+   onScroll(event) {
+     this.threeDService.upDateDisplayCoord(window.pageYOffset);
+    //  console.log('scroll', window.pageYOffset)
+   }
 
   constructor(private threeDService: ThreeDService) { }
 
   ngOnInit(): void {
     this.threeDService.createScene(this.rendererCanvas);
+    
   }
 
 }
