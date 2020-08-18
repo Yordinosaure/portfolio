@@ -11,6 +11,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PresentationComponent } from './components/presentation/presentation.component';
 import { HardSkillsComponent } from './components/hard-skills/hard-skills.component';
 import { Canvas3DComponent } from './components/shared/canvas3-d/canvas3-d.component';
+import { SoftSkillsComponent } from './components/soft-skills/soft-skills.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { Canvas3DComponent } from './components/shared/canvas3-d/canvas3-d.compo
     ThreeTestComponent,
     PresentationComponent,
     HardSkillsComponent,
-    Canvas3DComponent
+    Canvas3DComponent,
+    SoftSkillsComponent
   ],
   imports: [
     BrowserModule,
