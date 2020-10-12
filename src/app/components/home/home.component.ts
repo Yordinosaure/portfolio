@@ -10,8 +10,8 @@ import { ThreeService } from 'src/app/core/services/three/three.service';
 })
 export class HomeComponent implements OnInit {
 
-  // @ViewChild('renderer', {static: true})
-  // rendererCanvas: ElementRef<HTMLDivElement>;
+  @ViewChild('renderer', {static: true})
+  rendererCanvas: ElementRef<HTMLDivElement>;
 
   // @HostListener('window:resize')
   // onResize(){
