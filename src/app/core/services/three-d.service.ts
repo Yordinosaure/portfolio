@@ -3,6 +3,7 @@ import * as Three from 'three';
 import { ColorService } from './color.service';
 import { GLTFLoader, GLTF } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { CheckPoint } from '../models/checkPoints.model';
+import { Vector3 } from 'three';
 
 @Injectable({
   providedIn: 'root'
@@ -35,6 +36,10 @@ export class ThreeDService implements OnInit, OnDestroy{
   scrollPosY : number;
 
   checkPoints: CheckPoint[] = [];
+  actualCheckPoints: CheckPoint[] = [];
+
+  actualPosition: Three.Vector3;
+  actualAngle: number;
 
   constructor(private colorService: ColorService, private ngZone: NgZone) { }
 
@@ -72,6 +77,8 @@ export class ThreeDService implements OnInit, OnDestroy{
     this.scene.position.y = -0.05;
     this.scene.position.x = 0.05;
     this.scene.position.z = 1;
+    
+    // console.log(this.scene.position)
   }
   
   initCamera(): void {
@@ -125,17 +132,17 @@ export class ThreeDService implements OnInit, OnDestroy{
     this.loader = new GLTFLoader();
     this.loader.load('../../assets/3dmodels/victoire.gltf',
       (gltf) => {
-        console.dir(gltf)
+        // console.dir(gltf)
         this.gltf = gltf;
 
         // Reset mesh position: center model
-        var box = new Three.Box3().setFromObject(gltf.scene);
-        box.getCenter(gltf.scene.position);
-        gltf.scene.position.multiplyScalar(-0.12);
+        // var box = new Three.Box3().setFromObject(gltf.scene);
+        // box.getCenter(gltf.scene.position);
+        // gltf.scene.position.multiplyScalar(-0.12);
         this.pivot = new Three.Group();
         this.scene.add(this.pivot);
         this.pivot.add(this.gltf.scene);
-        this.gltf.scene.scale.set(1.1, 1.1, 1.1);
+        this.gltf.scene.scale.set(1, 1, 1);
 
         //X => horizontal
         //Y => Vertical
@@ -149,7 +156,11 @@ export class ThreeDService implements OnInit, OnDestroy{
        
 
         this.computeRender();
-        this.animate()
+        this.animate();
+        setTimeout(()=>{
+          // this.moveSim();s
+
+        }, 2000)
       },
       undefined,
       (err) => {
@@ -201,9 +212,9 @@ export class ThreeDService implements OnInit, OnDestroy{
     this.computeRender();
   }
 
-  moveToCoord() {
-    this.stopRotation();
-  }
+  // moveToCoord() {
+  //   this.stopRotation();
+  // }
 
   stopRotation(): void {
     this.isAnimated = false;
@@ -218,9 +229,65 @@ export class ThreeDService implements OnInit, OnDestroy{
     this.scrollPosY = scrollY;
     this.stopRotation();
     this.pivot.rotateY(this.degToRad(1))
-    console.log(this.pivot.rotation.y);
+    // console.log(this.pivot.rotation.y);
+    this.findCheckPoint(this.scrollPosY);
     // Math
     // console.log(this.scrollPosY);
+  }
+
+  findCheckPoint(scrollY: number) {
+   
+  }
+
+  moveSim() {
+    this.moveTo(new Three.Vector3(-0.2,1,-1), 0);
+  }
+
+  move(x, y, z, a) {
+    requestAnimationFrame(() => {
+      this.move(x,y,z,a);
+    });
+    // if(this.pivot.rotation.y >= a) {
+    //   this.pivot.rotation.y -= a/100;
+    // }
+    if(this.pivot.position.x >= x) {
+      this.pivot.position.x += x/100;
+      // console.log(this.pivot.position.x)
+    }
+    if(this.pivot.position.y >= y) {
+      this.pivot.position.y += y/100;
+      // console.log(this.pivot.position.y)
+    }
+    if(this.pivot.position.z >= z) {
+      this.pivot.position.z += z/100;
+      // console.log(this.pivot.position.z)
+    }
+    // console.log(this.pivot.rotation.y % this.degToRad(360))
+    // this.menuItems.forEach(x => {
+    //   x.rotation.y -= this.autoRotationVal;
+    // })
+    this.computeRender();
+  }
+
+  moveTo(aimPosition: Three.Vector3, aimAngle: number) {
+    this.getActualPosition();
+    this.stopRotation();
+    let aimX = aimPosition.x - this.actualPosition.x;
+    let aimY = aimPosition.y - this.actualPosition.y;
+    let aimZ = aimPosition.z - this.actualPosition.z;
+    let aimAng = aimAngle - this.actualAngle;
+    // console.log(`to move x: ${aimX}, y: ${aimY}, z: ${aimZ}, angle: ${aimAng}`);
+    this.move(aimX, aimY, aimZ, aimAng)
+  }
+
+  getActualPosition(){
+    this.actualPosition = new Three.Vector3(
+      this.pivot.position.x,
+      this.pivot.position.y,
+      this.pivot.position.z,
+    );
+    this.actualAngle = this.pivot.rotation.y;
+    // console.log(`àctual x:${this.actualPosition.x}, y: ${this.actualPosition.y}, z:${this.actualPosition.z}, ang:${this.actualAngle}`)
   }
 
   degToRad(deg: number): number {
@@ -229,6 +296,6 @@ export class ThreeDService implements OnInit, OnDestroy{
 
   addCheckPoint(cp: CheckPoint): void {
     this.checkPoints.push(cp);
-    console.log(this.checkPoints);
+    // console.log(this.checkPoints);
   }
 }

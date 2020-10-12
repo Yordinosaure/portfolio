@@ -15,7 +15,7 @@ export class ContentService {
   ]
 
   presentationContent = {
-    title: 'Angular/JavaScript developer',
+    jobTitle: 'Angular/JavaScript developer',
     name: 'Yordi David',
     quote: '"It could be nice working together and make awesome things"'
   }
